@@ -36,5 +36,31 @@ public function store(Request $request)
     return redirect()->route('index');
 }
 
+public function edit($id)
+{
+    $product = Product::find($id);
+    return view('product.edit', compact('product'));
+}
+
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'priceHt' => 'required|numeric',
+        'dateUpdate' => 'nullable|date',
+    ]);
+
+    $product = Product::find($id);
+    $product->update([
+        'name' => $request->name,
+        'priceHt' => $request->priceHt,
+        'dateUpdate' => $request->dateUpdate ?? now(),
+    ]);
+
+    return redirect()->route('index');
+}
+
+
+
 
 }
