@@ -60,7 +60,13 @@ public function update(Request $request, $id)
     return redirect()->route('index');
 }
 
-
-
+public function delete($id)
+{
+    $product = Product::find($id);
+    if ($product) {
+        $product->delete();
+    }
+    return redirect()->route('index');
+}
 
 }
